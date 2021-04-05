@@ -1,0 +1,206 @@
+/* General */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+}
+
+h1 {
+    font-family: 'Lato';
+    text-align: center;
+    font-weight: 300;
+}
+
+
+/* General de cada strip */
+
+.strip {
+    position: absolute;
+    width: 20%;
+    height: 100vh;
+    overflow: hidden;
+    /* no se solapan las opacidades vecinas */
+}
+
+
+/* Único de cada strip */
+
+.strip:nth-child(1) {
+    left: 0;
+    /* background: #244F75; */
+    /* si se pusiera el background aquí y no en child no se cumpliria la animación inicial de las barras, solo la de la opacidad */
+}
+
+.strip:nth-child(2) {
+    left: 20vw;
+}
+
+.strip:nth-child(3) {
+    left: 40vw;
+}
+
+.strip:nth-child(4) {
+    left: 60vw;
+}
+
+.strip:nth-child(5) {
+    left: 80vw;
+}
+
+
+/* Dentro de cada strip */
+
+.strip:nth-child(1) .inside {
+    animation-name: strip1;
+    /* ver animación final */
+    animation-delay: 0.2s;
+    /* delay de la animación desde el inicio de la carga de la página */
+    background: #244F75;
+}
+
+.strip:nth-child(2) .inside {
+    animation-name: strip2;
+    animation-delay: 0.4s;
+    background: #60BFBF;
+}
+
+.strip:nth-child(3) .inside {
+    animation-name: strip3;
+    animation-delay: 0.6s;
+    background: #8C4B7E;
+}
+
+.strip:nth-child(4) .inside {
+    animation-name: strip4;
+    animation-delay: 0.8s;
+    background: #F8BB44;
+}
+
+.strip:nth-child(5) .inside {
+    animation-name: strip5;
+    animation-delay: 0.10s;
+    background: #F24B4B;
+}
+
+
+/* --- */
+
+.container .inside {
+    animation-duration: 1s;
+    animation-fill-mode: both;
+    /* animaciones de inicio */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* centrar letras */
+    text-decoration: none;
+}
+
+.container .inside:hover:before {
+    transform: skew(0deg) scale(1);
+    /* skew = ocupa todo el ancho y alto del stripe / scale ≃ velocidad de la opacidad blanca */
+    opacity: 0.1;
+}
+
+.container .inside:before {
+    content: "";
+    /* opacidades vacías de contenido, de lo contrario no se mostrarían */
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /* aunque el w y el h sean ambos del 100%, luego se modificarán para darle la forma que les corresponde */
+    background: white;
+    /* color de la opacidad del inside */
+    opacity: 0.05;
+    /* opacidad del inside */
+    transform-origin: center center;
+    transform: skew(30deg) scaleY(1);
+    /* skew nos permite recortar y encarrilar esa opacidad blanca hacia la izquierda en diagonal, en este caso */
+    transition: all 1s cubic-bezier(0.23, 1, 0.32, 1);
+    /* ayuda a la transición de la opacidad blanca a ser más fluida, tarda 1 segundo */
+}
+
+.letters {
+    display: block;
+    margin: 0;
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    font-size: 3.5vw;
+    color: white;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+
+/* ANIMACIONES */
+
+@keyframes strip1 {
+    0% {
+        -webkit-transform: translate3d(-100%, 0, 0);
+        transform: translate3d(-100%, 0, 0);
+        /* izquierda -> derecha */
+    }
+    100% {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes strip2 {
+    0% {
+        -webkit-transform: translate3d(0, 100%, 0);
+        transform: translate3d(0, 100%, 0);
+        /* inferior -> superior */
+    }
+    100% {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes strip3 {
+    0% {
+        -webkit-transform: translate3d(0, -100%, 0);
+        transform: translate3d(0, -100%, 0);
+        /* superior -> inferior */
+    }
+    100% {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes strip4 {
+    0% {
+        -webkit-transform: translate3d(0, 100%, 0);
+        transform: translate3d(0, 100%, 0);
+        /* inferior -> superior */
+    }
+    100% {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes strip5 {
+    0% {
+        -webkit-transform: translate3d(100%, 0, 0);
+        transform: translate3d(100%, 0, 0);
+        /* derecha -> izquierda */
+    }
+    100% {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+}
